@@ -16,7 +16,7 @@
 
 1. Initialize state in the App class component, and define a new property called "text" with some string as the value.
 
-2. Add an input element to your App.
+2. Add an input element to your App. 
 
    - Use the `text` state to define its placeholder attribute.
 

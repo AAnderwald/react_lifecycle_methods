@@ -4,43 +4,54 @@ class App extends Component {
   constructor(props) {
     super(props);
 
-//part 1  line 7-9 Initialize state in the App class component, and define a new property called "text" with some string as the value.
-//hadLoaded for part 5    
-     this.state = { text: "Change This Title", hasLoaded: false,};
-    
-//part 5 create method handelClick, hasLoaded in the app state bind method
-    this.handleInput = this.handleInput.bind(this);             //method for 4 change
-    this.handleClick = this.handleClick.bind(this);             //method for 5 toggle
-}
+    this.state = {                               //part 1
+      text: "Hello, I'm an input element ",      //part 1 text: "Hello", 
+      hasLoaded: false,                          /*part 4 */
+    }
+    this.handleInput = this.handleInput.bind (this); 
+    this.handleClick = this.handleClick.bind (this); 
+  }
+                      
+  componentDidMount ()  {                       /*Part 9 ComponentDidMount*/
+    this.setState({ hasloaded: true});
+  }  
 
-//part 3 handling the input does directly replace the state it mergess with inital state from line 9; the two are compared and see there is a new property for the title
-//title and whatever is the value of input merge old to new state but keeps incoming state
-handleInput() { this.setState ({ text: document.getElementById("text").value});
-}
-
-//part 7 to toggle need to be the opposite of what it is so that it will toggle
-
-handleClick() { this.setState ({hasLoaded: !this.state.hasLoaded}); 
-}
-
-//part 2 line 38 input  Add an input element to your App. place hold is a gray color text in the box before you put anything in it.
-//part 4 line 40 add an `onChange` event to the input that calls `this.handleInput`.
-//part 6 line 41 the handelToggle button
+  handleInput (event){                           /*part 3 change event that cause this method to be called*/
+    this.setState({                              /*part 3 passes in an object in the correct stage with will be merged*/
+        text: event.target.value                 /*part 3 change the text to event.targe.value where the target of this change event is the input value and want to change this value*/
+      });
+  }
+  
+  handleClick(){                                 /*Part 5 this.handleClick will toggle to value of hasLoading*/
+    this.setState ({hasLoaded: !this.state.hasLoaded  /*Part 7 want to change hasLoaded this is false to begin with to make it true but since its true it will be false etx*/
+    }); 
+  }
 
   render() {
-    return (
-      <div>
-        <h1>{this.state.text}</h1> 
-        <hr />
-        
-        <input type="text" name="text" id="text" placeholder="New Title Here"/>  
+    if (this.state.hasLoaded) {     
+      return (
+        <div>
+          <h1>Welcome to React!</h1> 
+          <button /*part 6*/ onClick= {this.handleClick}>Toggle Button</button> 
+          <hr />
+          <input                                   /*part 2 excepct onChange*/ 
+            type="text"
+            placeholder={this.state.text}
+            onChange={this.handleInput}            /*part 3*/
+            />
+        </div>
+     );
 
-        <button onClick={this.handleInput}>Click here</button>   
-        <button onClick={this.handleClick}>Toggle</button> 
-
-      </div>
-    );
+    } else {
+      return (
+        <div>
+          <h1>loading . . . </h1>
+          <button /*part 8*/  onClick={this.handleClick}>load</button>
+        </div>
+      )
+    }
   }
 }
+
 
 export default App;
